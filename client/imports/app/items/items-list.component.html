@@ -1,0 +1,28 @@
+<div class="ui input">
+  <input type="text" #searchtext (keyup)="search(searchtext.value)" placeholder="Search by title">
+</div>
+<login-buttons></login-buttons>
+<div class="ui divider"></div>
+<div class="ui three column grid">
+  <div *ngFor="let item of items | async" class="column">
+    <div class="ui fluid card">
+      <div *ngIf="item.image" class="image">
+        <img src="">
+      </div>
+      <div class="content">
+        <a [routerLink]="['/items', item._id]" class="header">{{ item.title }}</a>
+        <div class="meta">
+          <span class="date">{{ item?.createdAt | date:short }}</span>
+        </div>
+        <div class="description">
+          {{ item.description }}
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="money icon"></i> {{ item?.price | currency:'BRL':true }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
