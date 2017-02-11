@@ -1,0 +1,18 @@
+<div class="ui text menu">
+  <div [routerLink]="['/']" class="header item">
+    Villeme
+  </div>
+  <div class="item">
+    <div class="ui icon input">
+      <input type="text" #searchtext (keyup)="search(searchtext.value)" placeholder="Buscar...">
+      <i class="search link icon"></i>
+    </div>
+  </div>
+  <div class="item">
+    <div [routerLink]="['/items/new']" class="item">Criar um evento</div>
+  </div>
+  <div class="ui right item">
+    <login-buttons></login-buttons>
+  </div>
+</div>
+<div class="ui section divider"></div>

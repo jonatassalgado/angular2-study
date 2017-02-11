@@ -7,7 +7,9 @@ import { AccountsModule } from 'angular2-meteor-accounts-ui'
 // Components
 import { AppComponent } from './app.component';
 import { routes } from './app.routes';
+import { ItemsService } from './items/shared/items.service';
 import { ITEMS_DECLARATIONS } from './items';
+import { NAVBAR_DECLARATIONS } from './navbar';
 
 // Providers
 import { ROUTES_PROVIDERS } from './app.routes';
@@ -22,10 +24,12 @@ import { ROUTES_PROVIDERS } from './app.routes';
   ],
   declarations: [
     AppComponent,
-    ...ITEMS_DECLARATIONS
+    ...ITEMS_DECLARATIONS,
+    ...NAVBAR_DECLARATIONS
   ],
   providers: [
-    ...ROUTES_PROVIDERS
+    ...ROUTES_PROVIDERS,
+      ItemsService
   ],
   bootstrap: [
     AppComponent

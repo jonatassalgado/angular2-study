@@ -1,3 +1,4 @@
+import { ItemsService } from './shared/items.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,6 +22,15 @@ import template from './items-list.component.html';
 export class ItemsListComponent implements OnInit, OnDestroy {
   items: Observable<Item[]>;
   itemsSub: Subscription;
+  itemsFoundSub: Subscription;
+
+  constructor(private itemsService: ItemsService) {
+    this.itemsFoundSub = itemsService.itemsFound$.subscribe(
+      items => {
+        this.items = items;
+      }
+    )
+  }
 
   ngOnInit() {
     this.items = Items.find({}).zone();
@@ -31,11 +41,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     Items.remove(item._id);
   }
 
-  search(value: string): void {
-    this.items = Items.find(value ? { title: { $regex: value, $options: 'i' } } : {}).zone();
-  }
-
   ngOnDestroy() {
     this.itemsSub.unsubscribe();
+    this.itemsFoundSub.unsubscribe();
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { MeteorObservable } from 'meteor-rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -21,7 +22,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     itemSub: Subscription;
 
     constructor(
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private location: Location
     ) {}
 
     ngOnInit() {

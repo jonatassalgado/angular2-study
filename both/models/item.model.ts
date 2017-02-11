@@ -9,5 +9,5 @@ export interface Item extends CollectionObject {
   friends?: string[],
   dates?: Date[],
   owner?: string,
-  createdAt: Date
+  createdAt: number
 }

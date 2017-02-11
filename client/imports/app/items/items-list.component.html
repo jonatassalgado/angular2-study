@@ -1,11 +1,6 @@
-<div class="ui input">
-  <input type="text" #searchtext (keyup)="search(searchtext.value)" placeholder="Search by title">
-</div>
-<login-buttons></login-buttons>
-<div class="ui divider"></div>
-<div class="ui three column grid">
+<div class="ui four column grid">
   <div *ngFor="let item of items | async" class="column">
-    <div class="ui fluid card">
+    <div class="ui fluid link card">
       <div *ngIf="item.image" class="image">
         <img src="">
       </div>

@@ -1,16 +1,5 @@
 <div class="ui container">
-	<div class="ui text menu">
-		<div [routerLink]="['/']" class="header item">
-			Villeme
-		</div>
-		<div class="ui right dropdown item">
-			More
-			<i class="dropdown icon"></i>
-			<div class="menu">
-				<div [routerLink]="['/items/new']" class="item">Criar um evento</div>
-			</div>
-		</div>
-	</div>
+	<navbar></navbar>
 	<router-outlet>
 		<div></div>
 	</router-outlet>
