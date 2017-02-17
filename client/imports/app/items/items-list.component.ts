@@ -1,18 +1,14 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Facebook, FacebookApiException} from 'fb';
+
+import { Item } from '../../../../both/models/item.model';
+import { Items } from '../../../../both/collections/items.collection';
 import { ItemsService } from './shared/items.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Meteor } from 'meteor/meteor';
+import { MeteorObservable } from 'meteor-rxjs';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { MeteorObservable } from 'meteor-rxjs';
-
-// Collections
-import { Items } from '../../../../both/collections/items.collection';
-
-// Model
-import { Item } from '../../../../both/models/item.model';
-
-// Templates
 import template from './items-list.component.html';
-
 
 @Component({
   selector: 'items-list',
@@ -23,8 +19,12 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   items: Observable<Item[]>;
   itemsSub: Subscription;
   itemsFoundSub: Subscription;
+  eventsSub: Subscription;
 
-  constructor(private itemsService: ItemsService) {
+  constructor(
+    private itemsService: ItemsService
+  ) {
+
     this.itemsFoundSub = itemsService.itemsFound$.subscribe(
       items => {
         this.items = items;
@@ -36,6 +36,7 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     this.items = Items.find({}).zone();
     this.itemsSub = MeteorObservable.subscribe('items').subscribe();
   }
+
 
   removeItem(item: Item): void {
     Items.remove(item._id);

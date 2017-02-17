@@ -12,7 +12,7 @@ export class ItemsService {
   itemsFound$ = this.itemsFoundSource.asObservable();
 
   findItem(value: string) {
-    let items = Items.find(value ? { title: { $regex: value, $options: 'i' } } : {}).zone();
+    let items = Items.find(value ? { name: { $regex: value, $options: 'i' } } : {}).zone();
     this.itemsFoundSource.next(items);
   }
 

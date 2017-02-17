@@ -30,8 +30,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         this.paramsSub = this.route.params
             .map(params => params["itemId"])
             .subscribe(itemId => {
-                console.log(this.item)
-
                 this.itemId = itemId;
 
                 if (this.itemSub) {

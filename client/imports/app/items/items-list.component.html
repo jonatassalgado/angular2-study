@@ -1,23 +1,25 @@
 <div class="ui four column grid">
   <div *ngFor="let item of items | async" class="column">
-    <div class="ui fluid link card">
-      <div *ngIf="item.image" class="image">
-        <img src="">
-      </div>
-      <div class="content">
-        <a [routerLink]="['/items', item._id]" class="header">{{ item.title }}</a>
-        <div class="meta">
-          <span class="date">{{ item?.createdAt | date:short }}</span>
+    <a [routerLink]="['/items', item._id]" class="header">
+      <div class="ui fluid link card">
+        <div *ngIf="item.cover" class="image">
+          <img [src]="item.cover">
         </div>
-        <div class="description">
-          {{ item.description }}
+        <div class="content">
+          {{ item.name }}
+          <div class="meta">
+            <span class="date">{{ item?.createdAt | date:short }}</span>
+          </div>
+          <div class="description">
+            {{ item.description | slice:0:100 }}
+          </div>
         </div>
-      </div>
-      <div class="extra content">
-        <a>
-          <i class="money icon"></i> {{ item?.price | currency:'BRL':true }}
-        </a>
-      </div>
+        <div class="extra content">
+          <a>
+            <i class="money icon"></i> {{ item?.price | currency:'BRL':true }}
+          </a>
+        </div>
+    </a>
     </div>
   </div>
 </div>
