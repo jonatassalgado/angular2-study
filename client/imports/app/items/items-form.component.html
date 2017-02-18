@@ -1,9 +1,9 @@
 {{ events | json }}
-<div class="ui two column centered grid">
-  <div class="column">
+<div class="ui centered grid">
+  <div class="eight wide computer sixteen wide mobile column">
     <div class="ui segment">
       <h1 class="ui dividing header">Criar um evento</h1>
-      <form (ngSubmit)="searchInFacebook()"  class="ui form" *ngIf="!fetchedSuccess">
+      <form (ngSubmit)="searchInFacebook()" class="ui form" *ngIf="!isWritted">
         <div class="field">
           <label>Link do evento no Facebook</label>
           <div class="ui action input">
@@ -12,8 +12,15 @@
           </div>
         </div>
       </form>
-      <form [formGroup]="addForm" (ngSubmit)="saveItemInDB()" *ngIf="fetchedSuccess" class="ui form">
-        <div class="field">
+      <div *ngIf="!isWritted" class="ui horizontal divider">
+        Ou
+      </div>
+      <button (click)="isWritted = true" *ngIf="!isWritted" class="ui fluid icon action button">
+        <i class="ui write icon"></i>
+        Criar do zero
+      </button>
+      <form [formGroup]="addForm" (ngSubmit)="saveItemInDB()" *ngIf="isWritted || isFetchedWithSuccess" class="ui form">
+        <div *ngIf="cover" class="field">
           <img class="ui fluid rounded image" [src]="cover">
         </div>
         <div class="field">
@@ -46,7 +53,7 @@
           <label>Link do evento</label>
           <input type="text" formControlName="ticket_uri">
         </div>
-        <button class="ui button">Salvar</button>
+        <button [ngClass]="{disabled: !addForm.valid }" class="ui button">Salvar</button>
       </form>
     </div>
   </div>

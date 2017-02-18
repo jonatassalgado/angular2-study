@@ -1,5 +1,6 @@
 import { Route, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { MeteorObservable } from 'meteor-rxjs';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,7 +13,8 @@ import { Items } from '../../../../both/collections/items.collection';
 
 @Component({
   selector: 'items-form',
-  template
+  template,
+  providers: [DatePipe]
 })
 
 export class ItemsFormComponent implements OnInit, OnDestroy {
@@ -21,12 +23,17 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
   addForm: FormGroup;
   events: Object;
   eventsSub: Subscription;
-  fetchedSuccess: boolean;
+  isFetchedWithSuccess: boolean;
+  isWritted: boolean;
   itemCache: any;
 
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
-    this.fetchedSuccess = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private datepipe: DatePipe
+  ) {
+    this.isFetchedWithSuccess = false;
   }
 
 
@@ -88,14 +95,15 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
 
   private fetchFacebookResult(response): void {
     this.itemCache = response;
-    this.fetchedSuccess = true;
+    this.isFetchedWithSuccess = true;
+    this.isWritted = true;
     this.cover = this.itemCache.cover.source;
 
     this.addForm.patchValue({
       name: response.name,
       description: response.description,
-      start_time: new Date(response.start_time),
-      end_time: new Date(response.end_time),
+      start_time: this.datepipe.transform(response.start_time, 'yyyy-MM-dd'),
+      end_time: this.datepipe.transform(response.end_time, 'yyyy-MM-dd'),
       place_name: response.place.name,
       ticket_uri: response.ticket_uri
     });
