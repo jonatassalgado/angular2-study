@@ -12,10 +12,16 @@
 					{{ item.title }}
 				</div>
 				<div class="meta">
-					<span class="date">{{ item.createdAt | date:short }}</span>
+					<span class="date">{{ item.created_at | date:short }}</span>
 				</div>
 				<div class="description">
-					{{ item.description }}
+					{{ item.description | slice:0:500 }}
+					<a href="{{ getFacebookLink() }}">
+						<button class="ui right labeled icon basic mini button">
+							<i class="right arrow icon"></i>
+							Ver no facebook
+						</button>
+					</a>
 				</div>
 			</div>
 			<div class="extra content">

@@ -3,7 +3,11 @@ import { Items } from '../../../both/collections/items.collection';
 import { itemsParams } from '../params/items.params';
 
 Meteor.publish('items', function(params: itemsParams) {
-    return Items.find({city: params.city});
+    if (params && params['city']) {
+        return Items.find({city: params.city});
+    } else {
+        return Items.find({});
+    }
 });
 
 Meteor.publish('item', function(itemId: string) {

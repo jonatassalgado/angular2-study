@@ -1,3 +1,5 @@
+<h1 *ngIf="city" class="ui header">{{ city }}</h1>
+<div class="ui hidden divider"></div>
 <div class="ui four column grid">
   <div *ngFor="let item of items | async" class="column">
     <a [routerLink]="['/items', item._id]" class="header">
@@ -10,7 +12,7 @@
             {{ item.name }}
           </div>
           <div class="meta">
-            <span class="date">{{ item?.createdAt | date:short }}</span>
+            <span class="date">{{ item?.created_at | date:short }}</span>
           </div>
           <div class="description">
             {{ item.description | slice:0:100 }}

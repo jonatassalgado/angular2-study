@@ -70,10 +70,12 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
           this.addForm.value,
           {
             owner: Meteor.userId(),
-            createdAt: Date.now(),
+            created_at: Date.now(),
             cover: this.itemCache.cover.source,
-            place: {
-              location: this.itemCache.place.location
+            facebook_link: {
+              place: {
+                location: this.itemCache.place.location
+              }
             }
           }
         )

@@ -21,8 +21,8 @@ export class ItemsListComponent implements OnInit, OnDestroy {
   items: Observable<Item[]>;
   itemsSub: Subscription;
   itemsFoundSub: Subscription;
-  city: string;
   paramsSub: Subscription;
+  city: string;
 
   constructor(
     private itemsService: ItemsService,
@@ -40,11 +40,17 @@ export class ItemsListComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.params
       .map(params => params["city"])
       .subscribe(city => {
-        console.log(city);
+        this.city = city;
 
+        if (city) {
           this.itemsSub = MeteorObservable.subscribe('items', {'place.location.city': city}).subscribe(() => {
             this.items = Items.find({'place.location.city': city}).zone();
           })
+        } else {
+          this.itemsSub = MeteorObservable.subscribe('items').subscribe(() => {
+            this.items = Items.find({}).zone();
+          })
+        }
       })
   }
 

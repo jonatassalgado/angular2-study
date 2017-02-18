@@ -43,7 +43,7 @@ declare module "meteor/meteor" {
       _id?: string;
       username?: string;
       emails?: Meteor.UserEmail[];
-      createdAt?: number;
+      created_at?: number;
       profile?: any;
       services?: any;
     }

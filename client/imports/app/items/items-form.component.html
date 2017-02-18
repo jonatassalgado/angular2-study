@@ -5,8 +5,11 @@
       <h1 class="ui dividing header">Criar um evento</h1>
       <form (ngSubmit)="searchInFacebook()"  class="ui form" *ngIf="!fetchedSuccess">
         <div class="field">
-          <label>Link do event no Facebook</label>
-          <input type="text" [(ngModel)]="facebookLink" [ngModelOptions]="{standalone: true}">
+          <label>Link do evento no Facebook</label>
+          <div class="ui action input">
+            <input type="text" [(ngModel)]="facebookLink" [ngModelOptions]="{standalone: true}">
+            <button (click)="searchInFacebook()" class="ui button">Buscar</button>
+          </div>
         </div>
       </form>
       <form [formGroup]="addForm" (ngSubmit)="saveItemInDB()" *ngIf="fetchedSuccess" class="ui form">

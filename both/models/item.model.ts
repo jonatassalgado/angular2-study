@@ -6,7 +6,7 @@ export interface Item extends CollectionObject {
   description: string,
   start_time: Date,
   end_time?: Date,
-  createdAt: number,
+  created_at: number,
   price?: number,
   rate?: number,
   friends?: string[],

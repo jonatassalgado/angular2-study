@@ -11,7 +11,7 @@ export function loadItems() {
     const items: Item[] = [{
       name: 'Dubstep-Free Zone',
       description: 'Can we please just for an evening not listen to dubstep.',
-      createdAt: Date.now(),
+      created_at: Date.now(),
       start_time: new Date(),
       place: {
         name: "Lancheria do Parque",
@@ -30,7 +30,7 @@ export function loadItems() {
     }, {
       name: 'All dubstep all the time',
       description: 'Get it on!',
-      createdAt: Date.now(),
+      created_at: Date.now(),
       start_time: new Date(),
             place: {
         name: "Lancheria do Parque",
@@ -49,7 +49,7 @@ export function loadItems() {
     }, {
       name: 'Savage lounging',
       description: 'Leisure suit required. And only fiercest manners.',
-      createdAt: Date.now(),
+      created_at: Date.now(),
       start_time: new Date(),
             place: {
         name: "Lancheria do Parque",

@@ -48,17 +48,24 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     }
 
 
-    delete() {
+    delete(): void {
         Items.remove(this.item._id);
         this.itemSub.unsubscribe();
         this.router.navigate(['/'])
     }
 
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.paramsSub.unsubscribe();
         this.itemSub.unsubscribe();
     }
+
+
+    getFacebookLink(): string {
+        return 'https://www.facebook.com/events/' + this.item._id;
+    }
+
+
 
 }
 
