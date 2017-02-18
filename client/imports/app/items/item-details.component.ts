@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MeteorObservable } from 'meteor-rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 import 'rxjs/add/operator/map';
@@ -15,16 +15,21 @@ import template from './item-details.component.html';
     selector: 'item-details',
     template
 })
+
+
 export class ItemDetailsComponent implements OnInit, OnDestroy {
     item: Item;
     itemId: string;
     paramsSub: Subscription;
     itemSub: Subscription;
 
+
     constructor(
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
+        private router: Router,
     ) {}
+
 
     ngOnInit() {
         this.paramsSub = this.route.params
@@ -41,6 +46,14 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 })
             })
     }
+
+
+    delete() {
+        Items.remove(this.item._id);
+        this.itemSub.unsubscribe();
+        this.router.navigate(['/'])
+    }
+
 
     ngOnDestroy() {
         this.paramsSub.unsubscribe();
