@@ -9,6 +9,7 @@ import { ItemDetailsComponent } from './items/item-details.component';
 
 export const routes: Route[] = [
     { path: '', component: ItemsListComponent },
+    { path: ':city', component: ItemsListComponent },
     { path: 'items/new', component: ItemsFormComponent },
     { path: 'items/:itemId', component: ItemDetailsComponent }
 ]
