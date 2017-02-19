@@ -62,7 +62,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
 
     getFacebookLink(): string {
-        return 'https://www.facebook.com/events/' + this.item._id;
+        return 'https://www.facebook.com/events/' + this.item.facebook_id;
     }
 
 

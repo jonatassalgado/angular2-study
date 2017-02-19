@@ -16,12 +16,6 @@
 				</div>
 				<div class="description">
 					{{ item.description | slice:0:500 }}
-					<a href="{{ getFacebookLink() }}">
-						<button class="ui right labeled icon basic mini button">
-							<i class="right arrow icon"></i>
-							Ver no facebook
-						</button>
-					</a>
 				</div>
 			</div>
 			<div class="extra content">
@@ -30,9 +24,20 @@
 				</a>
 			</div>
 		</div>
-		<button (click)="location.back()" class="ui fluid button">
-			<i class="long arrow left icon"></i>
-			Voltar
-		</button>
+		<div class="ui grid">
+			<div class="four wide column">
+				<button (click)="location.back()" class="ui fluid basic button">
+					Voltar
+				</button>
+			</div>
+			<div class="twelve wide column">
+				<a href="{{ getFacebookLink() }}">
+					<button class="ui right labeled icon fluid basic button">
+						<i class="right arrow icon"></i>
+						Ver no facebook
+					</button>
+				</a>
+			</div>
+		</div>
 	</div>
 </div>

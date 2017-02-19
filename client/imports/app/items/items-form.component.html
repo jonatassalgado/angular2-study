@@ -3,7 +3,7 @@
   <div class="eight wide computer sixteen wide mobile column">
     <div class="ui segment">
       <h1 class="ui dividing header">Criar um evento</h1>
-      <form (ngSubmit)="searchInFacebook()" class="ui form" *ngIf="!isWritted">
+      <form (ngSubmit)="searchInFacebook()" class="ui form" *ngIf="!isWritterMode">
         <div class="field">
           <label>Link do evento no Facebook</label>
           <div class="ui action input">
@@ -12,14 +12,14 @@
           </div>
         </div>
       </form>
-      <div *ngIf="!isWritted" class="ui horizontal divider">
+      <div *ngIf="!isWritterMode" class="ui horizontal divider">
         Ou
       </div>
-      <button (click)="isWritted = true" *ngIf="!isWritted" class="ui fluid icon action button">
+      <button (click)="activeWritterMode()" *ngIf="!isWritterMode" class="ui fluid icon action button">
         <i class="ui write icon"></i>
         Criar do zero
       </button>
-      <form [formGroup]="addForm" (ngSubmit)="saveItemInDB()" *ngIf="isWritted || isFetchedWithSuccess" class="ui form">
+      <form [formGroup]="addForm" (ngSubmit)="saveItemInDB()" *ngIf="isWritterMode || isFetchedWithSuccess" class="ui form">
         <div *ngIf="cover" class="field">
           <img class="ui fluid rounded image" [src]="cover">
         </div>
@@ -44,6 +44,13 @@
         <div class="field">
           <label>Nome do local</label>
           <input type="text" formControlName="place_name"></input>
+        </div>
+        <div class="field">
+          <label>Categorias</label>
+          <select class="ui categories fluid search dropdown" multiple="">
+            <option value="">Categorias</option>
+            <option *ngFor="let category of categories" value="{{category}}">{{ category }}</option>
+          </select>
         </div>
         <div class="field">
           <label>Preço</label>

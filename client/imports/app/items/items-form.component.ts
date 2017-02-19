@@ -1,14 +1,11 @@
 import { Route, Router } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { MeteorObservable } from 'meteor-rxjs';
 import { Subscription } from 'rxjs/Subscription';
 
-// Templates
 import template from './items-form.component.html';
-
-// Collections
 import { Items } from '../../../../both/collections/items.collection';
 
 @Component({
@@ -17,15 +14,16 @@ import { Items } from '../../../../both/collections/items.collection';
   providers: [DatePipe]
 })
 
-export class ItemsFormComponent implements OnInit, OnDestroy {
+export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   cover: string;
   facebookLink: string;
   addForm: FormGroup;
   events: Object;
   eventsSub: Subscription;
   isFetchedWithSuccess: boolean;
-  isWritted: boolean;
+  isWritterMode: boolean;
   itemCache: any;
+  categories: Array<string>;
 
 
   constructor(
@@ -34,6 +32,7 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
     private datepipe: DatePipe
   ) {
     this.isFetchedWithSuccess = false;
+    this.categories = ["Lazer", "Esporte"];
   }
 
 
@@ -50,6 +49,10 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  ngAfterViewChecked() {
+    $('.ui.dropdown').dropdown();
+  }
 
   searchInFacebook(): void {
     if (!Meteor.userId()) {
@@ -71,6 +74,8 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
 
   saveItemInDB(): void {
     if (this.addForm.valid) {
+      const categories = $('.ui.categories.dropdown').dropdown('get value');
+
       Items.insert(
         Object.assign(
           {},
@@ -79,11 +84,12 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
             owner: Meteor.userId(),
             created_at: Date.now(),
             cover: this.itemCache.cover.source,
-            facebook_link: {
-              place: {
-                location: this.itemCache.place.location
-              }
+            facebook_id: this.facebookLink,
+            categories: categories,
+            place: {
+              location: this.itemCache.place.location
             }
+
           }
         )
       );
@@ -93,10 +99,15 @@ export class ItemsFormComponent implements OnInit, OnDestroy {
   }
 
 
+  activeWritterMode() {
+    this.isWritterMode = true;
+  }
+
+
   private fetchFacebookResult(response): void {
     this.itemCache = response;
     this.isFetchedWithSuccess = true;
-    this.isWritted = true;
+    this.isWritterMode = true;
     this.cover = this.itemCache.cover.source;
 
     this.addForm.patchValue({

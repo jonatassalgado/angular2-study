@@ -30,5 +30,6 @@ export interface Item extends CollectionObject {
       zip: string,
       full_address: string
     }
-  }
+  },
+  categories: Array<string>
 }
