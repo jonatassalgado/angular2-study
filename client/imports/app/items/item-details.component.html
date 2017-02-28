@@ -17,6 +17,27 @@
 				<div class="description">
 					{{ item.description | slice:0:500 }}
 				</div>
+				<p>
+					<div *ngIf="item.categories">
+						<div *ngFor="let category of item.categories" class="ui label">
+							{{ category }}
+						</div>
+					</div>
+				</p>
+				<p>
+					<div *ngIf="item.occassions">
+						<div *ngFor="let occassion of item.occassions" class="ui label">
+							{{ occassion }}
+						</div>
+					</div>
+				</p>
+				<p>
+					<div *ngIf="item.activities">
+						<div *ngFor="let activity of item.activities" class="ui label">
+							{{ activity }}
+						</div>
+					</div>
+				</p>
 			</div>
 			<div class="extra content">
 				<a>

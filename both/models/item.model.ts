@@ -13,7 +13,6 @@ export interface Item extends CollectionObject {
   owner?: string,
   cover?: string,
   facebook_id?: string,
-  category?: string,
   is_canceled?: boolean,
   ticket_uri?: string,
   attending_count?: number,
@@ -31,5 +30,7 @@ export interface Item extends CollectionObject {
       full_address: string
     }
   },
-  categories: Array<string>
+  categories?: Array<string>,
+  occassions?: Array<string>,
+  activities?: Array<string>
 }

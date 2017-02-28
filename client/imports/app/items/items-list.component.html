@@ -16,19 +16,36 @@
           </div>
           <div class="description">
             <p> {{ item.description | slice:0:65 }} </p>
+          </div>
+        </div>
+        <div *ngIf="item.categories || item.occassions || item.activities" class="extra content">
+          <div *ngIf="item.categories">
             <p>
-              <div *ngIf="item.categories">
-                <div *ngFor="let category of item.categories" class="ui label">
-                  {{ category }}
-                </div>
+              Categorias:
+              <div *ngFor="let category of item.categories" class="ui basic tiny label">
+                {{ category }}
+              </div>
+            </p>
+          </div>
+          <div *ngIf="item.occassions">
+            <p>
+              Bom para ir com...
+              <div *ngFor="let occassion of item.occassions" class="ui basic tiny label">
+                {{ occassion }}
+              </div>
+            </p>
+          </div>
+          <div *ngIf="item.activities">
+            <p>
+              Bom para...
+              <div *ngFor="let activity of item.activities" class="ui basic tiny label">
+                {{ activity }}
               </div>
             </p>
           </div>
         </div>
         <div class="extra content">
-          <a>
-            <i class="money icon"></i> {{ item?.price | currency:'BRL':true }}
-          </a>
+          <a><i class="money icon"></i> {{ item?.price | currency:'BRL':true }} </a>
         </div>
     </a>
     </div>

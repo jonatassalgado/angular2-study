@@ -53,6 +53,20 @@
           </select>
         </div>
         <div class="field">
+          <label>Bom para ir com...</label>
+          <select class="ui occassions fluid search dropdown" multiple="">
+            <option value="">Ocasiões</option>
+            <option *ngFor="let ocassion of occassions" value="{{ocassion}}">{{ ocassion }}</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Bom para...</label>
+          <select class="ui activities fluid search dropdown" multiple="">
+            <option value="">Atividades</option>
+            <option *ngFor="let activity of activities" value="{{activity}}">{{ activity }}</option>
+          </select>
+        </div>
+        <div class="field">
           <label>Preço</label>
           <input type="number" formControlName="price">
         </div>

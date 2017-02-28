@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validator, Validators } from '@angular/forms';
 import { MeteorObservable } from 'meteor-rxjs';
 import { Subscription } from 'rxjs/Subscription';
+import { ItemsService } from './shared/items.service';
 
 import template from './items-form.component.html';
 import { Items } from '../../../../both/collections/items.collection';
@@ -24,15 +25,20 @@ export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   isWritterMode: boolean;
   itemCache: any;
   categories: Array<string>;
+  occassions: Array<string>;
+  activities: Array<string>;
 
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private datepipe: DatePipe
+    private datepipe: DatePipe,
+    private itemsService: ItemsService
   ) {
     this.isFetchedWithSuccess = false;
-    this.categories = ["Lazer", "Esporte"];
+    this.categories = itemsService.getCategories();
+    this.occassions = itemsService.getOccasions();
+    this.activities = itemsService.getActivities();
   }
 
 
@@ -51,7 +57,7 @@ export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
   ngAfterViewChecked() {
-    $('.ui.dropdown').dropdown();
+
   }
 
   searchInFacebook(): void {
@@ -75,6 +81,8 @@ export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
   saveItemInDB(): void {
     if (this.addForm.valid) {
       const categories = $('.ui.categories.dropdown').dropdown('get value');
+      const occassions = $('.ui.occassions.dropdown').dropdown('get value');
+      const activities = $('.ui.activities.dropdown').dropdown('get value');
 
       Items.insert(
         Object.assign(
@@ -86,6 +94,8 @@ export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
             cover: this.itemCache.cover.source,
             facebook_id: this.facebookLink,
             categories: categories,
+            occassions: occassions,
+            activities: activities,
             place: {
               location: this.itemCache.place.location
             }
@@ -101,6 +111,10 @@ export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   activeWritterMode() {
     this.isWritterMode = true;
+
+    setTimeout(() => {
+      $('.ui.dropdown').dropdown();
+    }, 500)
   }
 
 
@@ -118,6 +132,10 @@ export class ItemsFormComponent implements OnInit, OnDestroy, AfterViewChecked {
       place_name: response.place.name,
       ticket_uri: response.ticket_uri
     });
+
+    setTimeout(() => {
+      $('.ui.dropdown').dropdown();
+    }, 500)
   }
 
 
